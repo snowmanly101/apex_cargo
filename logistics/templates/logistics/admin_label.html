@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Print Shipping Label | Apex Cargo Express</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
+        .label-card { background: white; border: 2px solid #000; padding: 25px; width: 450px; margin: 0 auto 30px auto; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .header { text-align: center; border-bottom: 3px solid #000; padding-bottom: 10px; margin-bottom: 15px; }
+        .header h1 { margin: 0; font-size: 24px; font-weight: 900; }
+        .section { margin-bottom: 12px; font-size: 14px; }
+        .section-title { font-weight: bold; text-transform: uppercase; font-size: 11px; color: #555; }
+        .tracking-code { font-size: 26px; font-weight: bold; letter-spacing: 2px; text-align: center; margin: 15px 0; border: 2px dashed #000; padding: 10px; background: #fafafa; }
+        .flex { display: flex; justify-content: space-between; }
+        .print-btn { text-align: center; margin-bottom: 20px; }
+        .print-btn button { background: #d97706; color: white; border: none; padding: 10px 20px; font-size: 16px; font-weight: bold; cursor: pointer; border-radius: 5px; }
+        @media print { .print-btn { display: none; } body { background: white; padding: 0; } }
+    </style>
+</head>
+<body>
+
+    <div class="print-btn">
+        <button onclick="window.print()">Print Shipping Label(s)</button>
+    </div>
+
+    {% for shipment in shipments %}
+    <div class="label-card">
+        <div class="header">
+            <h1>APEX CARGO EXPRESS</h1>
+            <small>PRIORITY EXPRESS LOGISTICS</small>
+        </div>
+
+        <div class="tracking-code">
+            {{ shipment.tracking_number }}
+        </div>
+
+        <div class="flex section">
+            <div>
+                <div class="section-title">FROM (SENDER):</div>
+                <strong>{{ shipment.sender_name }}</strong><br>
+                {{ shipment.origin }}
+            </div>
+            <div style="text-align: right;">
+                <div class="section-title">TO (RECEIVER):</div>
+                <strong>{{ shipment.receiver_name }}</strong><br>
+                {{ shipment.destination }}
+            </div>
+        </div>
+
+        <hr style="border: 0.5px solid #ccc; margin: 15px 0;">
+
+        <div class="flex section">
+            <div>
+                <div class="section-title">PACKAGE DETAILS:</div>
+                {{ shipment.package_description }}
+            </div>
+            <div style="text-align: right;">
+                <div class="section-title">WEIGHT:</div>
+                <strong>{{ shipment.weight_kg }} KG</strong>
+            </div>
+        </div>
+
+        <div class="section" style="margin-top: 15px; text-align: center; font-size: 11px; color: #666;">
+            Generated on: {{ shipment.created_at|date:"M d, Y" }} | Apex Cargo Logistics System
+        </div>
+    </div>
+    {% endfor %}
+
+</body>
+</html>

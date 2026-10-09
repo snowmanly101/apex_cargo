@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking Status | Apex Cargo Express</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-900 text-white font-sans min-h-screen">
+
+    <nav class="flex items-center justify-between px-8 py-5 border-b border-slate-800 bg-slate-950">
+        <div class="flex items-center space-x-3">
+            <i class="fa-solid fa-ship text-amber-500 text-3xl"></i>
+            <a href="/" class="text-2xl font-black tracking-wider text-white">APEX<span class="text-amber-500">CARGO</span></a>
+        </div>
+        <a href="/" class="text-slate-400 hover:text-white"><i class="fa-solid fa-arrow-left mr-2"></i>Back to Home</a>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        {% if shipment %}
+        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-8 shadow-2xl">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-800 pb-6 mb-6">
+                <div>
+                    <span class="text-slate-400 text-sm font-semibold uppercase tracking-wider">Tracking Code</span>
+                    <h1 class="text-3xl font-black text-amber-500">{{ shipment.tracking_number }}</h1>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 px-4 py-2 rounded-full font-bold uppercase text-sm">
+                        {{ shipment.get_status_display }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Route Info -->
+            <div class="grid md:grid-cols-3 gap-6 bg-slate-900 p-6 rounded-xl border border-slate-800 mb-8">
+                <div>
+                    <span class="text-slate-400 text-xs uppercase font-bold">Origin</span>
+                    <p class="text-lg font-bold">{{ shipment.origin }}</p>
+                    <span class="text-slate-400 text-xs">Sender: {{ shipment.sender_name }}</span>
+                </div>
+                <div>
+                    <span class="text-slate-400 text-xs uppercase font-bold">Destination</span>
+                    <p class="text-lg font-bold">{{ shipment.destination }}</p>
+                    <span class="text-slate-400 text-xs">Receiver: {{ shipment.receiver_name }}</span>
+                </div>
+                <div>
+                    <span class="text-slate-400 text-xs uppercase font-bold">Package Weight</span>
+                    <p class="text-lg font-bold">{{ shipment.weight_kg }} kg</p>
+                    <span class="text-slate-400 text-xs">{{ shipment.package_description }}</span>
+                </div>
+            </div>
+
+            <!-- Tracking Timeline -->
+            <h2 class="text-xl font-bold mb-6 flex items-center"><i class="fa-solid fa-clock-rotate-left text-amber-500 mr-2"></i> Shipment Updates</h2>
+            <div class="space-y-6 border-l-2 border-amber-500 pl-6 ml-2">
+                {% for event in shipment.events.all %}
+                <div class="relative">
+                    <div class="absolute -left-[31px] top-1 bg-amber-500 w-4 h-4 rounded-full border-4 border-slate-950"></div>
+                    <div class="text-sm text-slate-400">{{ event.timestamp|date:"M d, Y - H:i" }}</div>
+                    <div class="font-bold text-white text-lg">{{ event.location }}</div>
+                    <div class="text-slate-300">{{ event.description }}</div>
+                </div>
+                {% empty %}
+                <p class="text-slate-400">Package is registered and awaiting initial transit checkpoint update.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% else %}
+        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-12 text-center max-w-xl mx-auto shadow-2xl">
+            <i class="fa-solid fa-circle-exclamation text-amber-500 text-6xl mb-4"></i>
+            <h2 class="text-2xl font-bold mb-2">Shipment Not Found</h2>
+            <p class="text-slate-400 mb-6">No package matching code "<span class="text-amber-500 font-bold">{{ searched_code }}</span>" was found in our system.</p>
+            <a href="/" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-3 rounded-xl transition inline-block">Try Another Tracking Code</a>
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>

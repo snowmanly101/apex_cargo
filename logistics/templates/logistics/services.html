@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services & Shipping Quote | Apex Cargo Express</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-900 text-white font-sans min-h-screen">
+
+    <nav class="flex items-center justify-between px-8 py-5 border-b border-slate-800 bg-slate-950">
+        <div class="flex items-center space-x-3">
+            <i class="fa-solid fa-ship text-amber-500 text-3xl"></i>
+            <a href="/" class="text-2xl font-black tracking-wider text-white">APEX<span class="text-amber-500">CARGO</span></a>
+        </div>
+        <a href="/" class="text-slate-400 hover:text-white"><i class="fa-solid fa-arrow-left mr-2"></i>Back to Home</a>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-black">Our Logistics Services & Instant Quote</h1>
+            <p class="text-slate-400 mt-2">Get an estimated delivery quote for nationwide or international shipping.</p>
+        </div>
+
+        <div class="bg-slate-950 border border-slate-800 p-8 rounded-2xl shadow-2xl">
+            <form class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-slate-400 font-semibold mb-2">Origin Location</label>
+                        <input type="text" placeholder="City or Country of Origin" class="w-full bg-slate-900 border border-slate-700 p-4 rounded-xl text-white focus:outline-none focus:border-amber-500">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 font-semibold mb-2">Destination Location</label>
+                        <input type="text" placeholder="Destination City or Country" class="w-full bg-slate-900 border border-slate-700 p-4 rounded-xl text-white focus:outline-none focus:border-amber-500">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-slate-400 font-semibold mb-2">Freight Type</label>
+                        <select class="w-full bg-slate-900 border border-slate-700 p-4 rounded-xl text-white focus:outline-none focus:border-amber-500">
+                            <option>Express Nationwide Courier</option>
+                            <option>Ocean Cargo Freight</option>
+                            <option>Air Cargo Express</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 font-semibold mb-2">Package Weight (KG)</label>
+                        <input type="number" placeholder="Weight in kg" class="w-full bg-slate-900 border border-slate-700 p-4 rounded-xl text-white focus:outline-none focus:border-amber-500">
+                    </div>
+                </div>
+
+                <button type="button" onclick="alert('Quote Request Submitted! A dispatch representative will contact you shortly.')" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-black py-4 rounded-xl transition text-lg uppercase">
+                    Calculate Shipping Estimate
+                </button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
